@@ -1,0 +1,166 @@
+# Cinema Booking System.
+def print_tickets():
+    """Print the tickets of the user."""
+    for user_name, seats in user_tickets.items():
+        print("\n=============================================================================================================")
+        print("\nHere's You're Reciept!")
+        print(f"\nTransaction Success! Today! You, {user_name.title()}, have chosen {len(seats)} seat(s), \nfor Movie NO. {movie} {mtitle} in time of {newtime}.")
+        for seat in seats:
+            print(f"\tSeat number: {seat}")
+
+#for price.
+price = 250.00
+
+
+# Empty dictionary to store info later on.
+user_tickets = {}
+
+# List of seats the user can choose from.
+available_seats = ['1A', '2A', '3A', '4A', '5A', '6A', '7A', '8A', '9A', '10A',
+                  '11B', '12B', '13B', '14B', '15B', '16B', '17B', '18B', '19B', '20B', 
+                  '21C', '22C', '23C', '24C', '25C', '26C', '27C', '28C', '29C', '30C',
+                  '31D', '32D', '33D', '34D', '35D', '36D', '37D', '38D', '39D', '40D']
+
+#Movie List.
+available_movies = ['1. Jujutsu Kaisen 0 (2022)','2. Kingsman3(2022)', '3. Spiderman No way Home(2022)', '4. Black Clover(2021)']
+
+#for timing
+timing = ['1. 8:30am to 11:00am', '2. 11:30am to 2:00pm', '3. 2:30pm to 6:00pm', '4. 6:30pm to 9:00pm']
+
+
+
+# All prompts.
+movie_prompt = "\nChoose Movie Do you Want To Watch!"
+move_prompt = "\nAre you sure for this movie and time You choosen today? Would you like to move to Seat Reservation? (yes/no) "
+wanted_seats_prompt = "\nHow many seats are you booking today?"
+wanted_seats_prompt += "\nEnter the number: "
+date_prompt = "\nIn What Date do you Want to Watch? "
+date_prompt += "\nEnter The Date!(MM/DD/YY): "
+timing_prompt = "\nChoose Time to Watch."
+name_prompt = "What is your name? "
+seat_prompt = "\nPlease enter the number of the seat you would like to book: "
+go_again_prompt = "Would you want to book another ticket in this movie and time?  (Yes/No)"
+
+print("\nIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+print(" ")
+print("--Welcome To our Cinema Booking Portal!--")
+print("\nIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+
+#For movies.
+print("\nHere's the Available Movie's Today!")
+print(available_movies)
+movie = input(movie_prompt)
+if movie == '1':
+    mtitle = ("Jujutsu Kaisen 0 (2022)")
+
+if movie == '2':
+    mtitle = ("Kingsman3 (2022)")
+
+if movie == '3':
+    mtitle = ("Spiderman No Way Home")
+
+if movie == '4':
+    mtitle = ("BlacK Clover(2021)")
+
+
+
+#For selecting time
+print("\nHere's the time Schedule to watch!")
+print(timing)
+time = input(timing_prompt)
+if time == '1':
+    newtime = ("8:00am to 11:00am")
+
+if time == '2':
+    newtime = ("11:30am to 2:00pm")
+
+if time == '3':
+    newtime = ("2:30pm to 6:00pm")
+
+if time == '4':
+    newtime = ("6:30pm to 9:00pm")
+
+
+
+      
+# Ask the user if he would like to move to Seat Reservation.
+move = input(move_prompt)
+if move.lower() == 'yes':
+    # Runs until it reaches a break statement.
+    while True:
+        # Empty list to store the seat(s) the user has chosen.
+        seats = []
+
+        # Ask the user hoe many ticket they want to Find out how many times to run the while loop.
+        wanted_seats = input(wanted_seats_prompt)
+        wanted_seats = int(wanted_seats)
+        # If the user has asked for more seats than the number of seats available execute this block.
+        if wanted_seats > len(available_seats):
+            print(f"\n--I'm sorry, we only have {len(available_seats)} "
+                "seats available--")
+            print("--Please try again--")
+            continue
+
+        # Ask for the users name.
+        user_name = input(name_prompt)
+
+
+        # It will Run until the user has chosen the requested number of seats.
+        while True:
+
+            # To Show the user the available seats.
+            print("\nHere are the available seats:")
+            for seat in available_seats:
+                print(seat)
+
+            # Ask the user for their chosen seat number.
+            seat = input(seat_prompt)
+
+            
+
+            # If the user has entered a seat that is in the 'available_seats' thier chosen seat being remove from the 'available_seats' list.
+            if seat in available_seats:
+                available_seats.remove(seat)
+            # The user has entered a seat that is not in the 'avialbe_seats' list. it will be Ask for their seat again.
+            else:
+                print("\n--I'm sorry you have chosen an invalid seat--"
+                    "\n-Please try again-")
+                continue
+
+            # To Add the chosen seat to the 'seats' list
+            seats.append(seat)
+
+            # If the user has said that they are going to book more than one seat it will continue to 'while' loop again.
+            if wanted_seats > 1:
+                print("\nYou can now choose another seat.")
+                # The loop will run a limited number of times.
+                # It will 'continue' when there is more than one 'wanted_seat'.
+                wanted_seats-=1
+                continue
+            else:
+                break
+
+        # Add'user_name' variable and 'seats' list to the 'user_tickets' dictionary.
+        user_tickets[user_name] = seats
+
+        print_tickets()
+        total = price*len(seats)
+        print("\nYou're Total Payments is: ." ,total,
+          "\nKindly Screenshot This reciept And show it to the Cashier!"
+        "\nThank You for choosing us.")
+        print("\n=============================================================================================================")
+
+        #ask the user if he/she wants to let another person book their tickets. 
+        if available_seats:
+            go_again = input(go_again_prompt)
+            if go_again == 'No':
+                break
+           
+        else:
+            break
+
+   
+
+else:
+    print("You can always come by later!")
+
